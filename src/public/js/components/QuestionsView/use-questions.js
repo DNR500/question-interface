@@ -3,7 +3,13 @@ import { useEffect, useState } from 'react';
 const getStartQuestion = (questions) =>
   questions.find(({ displayCondition }) => displayCondition?.start);
 
-const getNextQuestion = (currentQuestion, currentAnswer, questions) =>
+const getNextQuestion = (
+  // TODO abstract this so the onQuestionAnswered can be passed
+  currentQuestion,
+  currentAnswer,
+  questions,
+  userAnswers // TODO allow questions to template based on userAnswer values
+) =>
   // mimic server request
   new Promise((res) => {
     setTimeout(
@@ -38,7 +44,12 @@ export const useQuestions = (questions, userdata) => {
   const submitAnswer = async () => {
     setLoading(true);
 
-    const nextQuestion = await getNextQuestion(question, answer, questions);
+    const nextQuestion = await getNextQuestion(
+      question,
+      answer,
+      questions,
+      userAnswers
+    );
 
     if (nextQuestion) {
       setQuestion(nextQuestion);

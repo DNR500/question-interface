@@ -1,34 +1,40 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Select } from '../../Form/Select';
 
-export const SingleOptionAnswered = ({
-  id,
-  question,
-  answer: { validation, propertyName, options, defaultValue },
-  userAnswers = {},
-  ...props
-}) => {
-  const userAnswer = userAnswers[propertyName] || defaultValue;
+export const SingleOptionAnswered = forwardRef(
+  (
+    {
+      id,
+      question,
+      answer: { validation, propertyName, options, defaultValue },
+      userAnswers = {},
+      ...props
+    },
+    ref
+  ) => {
+    const userAnswer = userAnswers[propertyName] || defaultValue;
 
-  return (
-    <Select
-      {...props}
-      {...validation}
-      id={id}
-      labelText={question}
-      value={userAnswer}
-      defaultValue={defaultValue}
-    >
-      {options.map(({ value, label }) => (
-        <option value={value} key={`${value}_${label}`}>
-          {label}
-        </option>
-      ))}
-    </Select>
-  );
-};
+    return (
+      <Select
+        {...props}
+        {...validation}
+        id={id}
+        labelText={question}
+        value={userAnswer}
+        defaultValue={defaultValue}
+        ref={ref}
+      >
+        {options.map(({ value, label }) => (
+          <option value={value} key={`${value}_${label}`}>
+            {label}
+          </option>
+        ))}
+      </Select>
+    );
+  }
+);
 
 SingleOptionAnswered.propTypes = {
   id: PropTypes.string.isRequired,

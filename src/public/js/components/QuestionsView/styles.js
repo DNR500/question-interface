@@ -17,16 +17,17 @@ export const QuestionContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
-  ${({ animateIn }) =>
+  ${({ animateIn, animateInTime }) =>
     animateIn &&
     css`
-      animation: ${slidein} 500ms ease-in-out;
+      animation: ${slidein} ${animateInTime}ms ease-in-out;
       will-change: transform;
     `}
 `;
 
 QuestionContainer.propTypes = {
   animateIn: PropTypes.bool,
+  animateInTime: PropTypes.number,
 };
 
 export const SuccessMessage = styled.div`

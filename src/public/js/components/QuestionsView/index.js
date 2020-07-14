@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactLoading from 'react-loading';
-import { getQuestionComponent } from '../QuestionTypes';
+import { Question } from '../QuestionTypes';
 import { Button } from '../Form/Button';
 import { QuestionContainer, SuccessMessage, ButtonContainer } from './styles';
 import { useQuestions } from './use-questions';
 
-export const QuestionsView = ({ questions, userdata = {} }) => {
+// TODO add back button
+// TODO do visiable question version, current 1_BY_1, 1_AFTER_ANOTHER
+// TODO How to map progress?
+// TODO mode sync and async - how best to handle
+
+export const QuestionsView = ({
+  questions,
+  userdata = {},
+  questionAnimateInTime = 500, // TODO add animateOutTime
+}) => {
   const [nextButtonHidden, setNextButtonHidden] = useState(true);
+  const inputRef = useRef(null);
 
   const {
     question,
@@ -33,20 +43,32 @@ export const QuestionsView = ({ questions, userdata = {} }) => {
     if (!loading) setNextButtonHidden(true);
   };
 
-  const QuestionComponent = getQuestionComponent(question);
+  useEffect(() => {
+    if (inputRef?.current) {
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, questionAnimateInTime);
+    }
+  }, [inputRef?.current]);
+
+  // TODO make success message configuarble
 
   return (
     <>
       {isComplete ? (
         <SuccessMessage>Thank you for completing the questions</SuccessMessage>
       ) : question.id ? (
-        <QuestionContainer animateIn={!loading}>
-          <QuestionComponent
+        <QuestionContainer
+          animateIn={!loading}
+          animateInTime={questionAnimateInTime}
+        >
+          <Question
             {...question}
             userAnswers={userAnswers}
             onValid={onValidHandler}
             onInvalid={onInvalidHandler}
             disabled={loading}
+            ref={inputRef}
           />
           <ButtonContainer>
             <Button
@@ -98,4 +120,5 @@ QuestionsView.propTypes = {
     })
   ),
   userdata: PropTypes.shape({}),
+  questionAnimateInTime: PropTypes.number,
 };

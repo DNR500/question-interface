@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { IntInput } from '../../Form/IntInput';
 
-export const IntAnswered = ({
-  id,
-  question,
-  answer: { validation, propertyName },
-  userAnswers = {},
-  ...props
-}) => {
-  const userAnswer = userAnswers[propertyName];
+export const IntAnswered = forwardRef(
+  (
+    {
+      id,
+      question,
+      answer: { validation, propertyName },
+      userAnswers = {},
+      ...props
+    },
+    ref
+  ) => {
+    const userAnswer = userAnswers[propertyName];
 
-  return (
-    <IntInput
-      {...props}
-      {...validation}
-      id={id}
-      labelText={question}
-      value={userAnswer}
-    />
-  );
-};
+    return (
+      <IntInput
+        {...props}
+        {...validation}
+        id={id}
+        labelText={question}
+        value={userAnswer}
+        ref={ref}
+      />
+    );
+  }
+);
 
 IntAnswered.propTypes = {
   id: PropTypes.string.isRequired,

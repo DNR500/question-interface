@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useFormControl } from './use-form-control';
 import { ControlWrap, HelperText, LabelText, Label } from './styles';
+import { mergeRefs } from '../../../hooks/utils/merge-refs';
 
 export const FormControlBase = ({
   className,
@@ -43,7 +44,6 @@ export const FormControlBase = ({
     isTouched,
     value,
     name: id,
-    ref: controlRef,
     onBlur: onBlurHandle,
     onChange: onChangeHandler,
     onInvalid: onSubmitInvalidHandler,
@@ -58,6 +58,7 @@ export const FormControlBase = ({
             ...props,
             ...controlProps,
             ...child.props,
+            ref: mergeRefs(controlRef, child.ref),
           })
         )}
         {errorMessage && <HelperText>{errorMessage}</HelperText>}

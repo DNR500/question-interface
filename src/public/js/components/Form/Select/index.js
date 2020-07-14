@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { BaseSelect } from './styles';
 import { FormControlBase } from '../FormControlBase';
 
-export const Select = ({ children, ...props }) => (
+export const Select = forwardRef(({ children, ...props }, ref) => (
   <FormControlBase {...props}>
-    <BaseSelect>{children}</BaseSelect>
+    <BaseSelect ref={ref}>{children}</BaseSelect>
   </FormControlBase>
-);
+));
 
 Select.propTypes = {
   ...FormControlBase.propTypes,
