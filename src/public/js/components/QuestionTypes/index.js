@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 
 import { StringAnswered } from './StringAnswered';
 import { IntAnswered } from './IntAnswered';
@@ -15,3 +16,9 @@ export const Question = forwardRef(({ answer, ...props }, ref) =>
     ) : null
   ) : null
 );
+
+Question.propTypes = {
+  answer: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+};

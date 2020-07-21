@@ -8,7 +8,8 @@ const getNextQuestion = (
   currentQuestion,
   currentAnswer,
   questions,
-  userAnswers // TODO allow questions to template based on userAnswer values
+  // TODO allow questions to template based on userAnswer values
+  userAnswers // eslint-disable-line no-unused-vars
 ) =>
   // mimic server request
   new Promise((res) => {
