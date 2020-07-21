@@ -5,7 +5,24 @@ Two things I wanted to explore
 - Creating a conversational interface rather than the classic form approach
 - Creating a simple approach to form validation use the browser inputs checkValidity() methods
 
-Sections below
+![Questions spike screen capture](screen-capture/QuestionsSpike.gif)
+
+## Spike outcomes
+
+Regarding the above
+
+ - I think further development of a standalone Questions component would be interesting
+   - Accessiblity should be a top concern, had to do some additional work around ensuring refs were added properly to correctly establish focus
+   - The QuestionTypes component factory should also be exposed so that its easy to add new question types. This would just reduce coupling with and other libraries and open it up more for customization
+   - Might be useful to also think about how to relay progress through a set of questions. This is more difficult when given a number of branches that might effect the total number of questions.
+ - Creating a simple reusable form and input library might be massively useful
+   - [CheckValidity API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity)
+ in browsers gives you all you need on the web for input validation. Effectively it would get rid of the need for things like formik.Inputs have been thought about here more traditional forms might want to consider
+   - Some additional functionality might be useful and need to be thought about more
+     - Being able to set form validation errors sent from the server endpoints after submission
+     - Being able to easily set initial form values
+
+# Sections below
 
 * Installation
 * To run the development build
